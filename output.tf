@@ -30,6 +30,11 @@ output "linux_vm_public_ips" {
   value       = var.enable_public_ip_address == true && var.os_flavor == "linux" ? zipmap(azurerm_linux_virtual_machine.linux_vm.*.name, azurerm_linux_virtual_machine.linux_vm.*.public_ip_address) : null
 }
 
+output "linux_vm_public_only_ips" {
+  description = "Public IP's map for the all windows Virtual Machines"
+  value       = var.enable_public_ip_address == true && var.os_flavor == "linux" ? element(azurerm_linux_virtual_machine.linux_vm.*.public_ip_address, 1) : null
+}
+
 output "linux_vm_private_ips" {
   description = "Public IP's map for the all windows Virtual Machines"
   value       = var.os_flavor == "linux" ? zipmap(azurerm_linux_virtual_machine.linux_vm.*.name, azurerm_linux_virtual_machine.linux_vm.*.private_ip_address) : null
